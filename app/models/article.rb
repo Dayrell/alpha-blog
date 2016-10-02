@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
 
     #   validations
+    #
     #   title validation: must have a title 
     validates :title, presence: true, length: { minimum: 3, maximum: 50 }
 
