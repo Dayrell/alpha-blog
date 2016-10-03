@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+    # before action, call set_article method in these methods
+    before_action :set_article, only: [ :edit, :update, :show, :destroy ]
 
     def index
 
@@ -12,7 +14,7 @@ class ArticlesController < ApplicationController
 
     def edit
         # send @article instance variable to the view
-        @article = Article.find(params[:id])
+        
 
     end
 
@@ -29,7 +31,7 @@ class ArticlesController < ApplicationController
 
     def update
 
-        @article = Article.find(params[:id])
+        
 
         if @article.update(article_params)
             flash[:notice] = "Article was succesfully updated"
@@ -42,7 +44,7 @@ class ArticlesController < ApplicationController
 
     def destroy
 
-        @article = Article.find(params[:id])
+        
         @article.destroy
         flash[:notice] = "Article was succesfulle deleted"
         redirect_to articles_path
@@ -51,11 +53,18 @@ class ArticlesController < ApplicationController
 
     def show
 
-        @article = Article.find(params[:id])
+        
 
     end
 
     private
+        # method to remove redundant code in destroy, show, update and edit methods
+        def set_article
+
+            @article = Article.find(params[:id])
+
+        end
+
         def article_params
 
             params.require(:article).permit(:title, :description)
