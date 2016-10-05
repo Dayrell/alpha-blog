@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+    belongs_to :user
 
     #   validations
     #
@@ -7,5 +8,7 @@ class Article < ActiveRecord::Base
 
     #   description validation: must have a description
     validates :description, presence: true, length: { minimum: 10, maximum: 300 }
+
+    validates :user_id, presence: true
 
 end
