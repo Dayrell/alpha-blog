@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
     # before action, call set_article method in these methods
     before_action :set_article, only: [ :edit, :update, :show, :destroy ]
+    before_action :require_user, except: [ :index, :show ]
+    before_action :require_same_user, only: [ :edit, :update, :destroy ]
 
     def index
 
@@ -15,7 +17,6 @@ class ArticlesController < ApplicationController
     def edit
         # send @article instance variable to the view
         
-
     end
 
     def create
@@ -72,6 +73,14 @@ class ArticlesController < ApplicationController
 
             params.require(:article).permit(:title, :description)
 
+        end
+
+        def require_same_user
+            # current_user from require_user method
+            if current_user != @article.user
+                flash[:danger] = "You can only delete or delete your own articles!"
+                redirect_to root_path
+            end
         end
 
 end
