@@ -16,11 +16,11 @@ class ArticlesController < ApplicationController
 
     def edit
         # send @article instance variable to the view
-        
+
     end
 
     def create
-        
+
         @article = Article.new(article_params)
 
         @article.user = current_user
@@ -35,8 +35,6 @@ class ArticlesController < ApplicationController
 
     def update
 
-        
-
         if @article.update(article_params)
             flash[:success] = "Article was succesfully updated"
             redirect_to article_path(@article)
@@ -48,7 +46,7 @@ class ArticlesController < ApplicationController
 
     def destroy
 
-        
+
         @article.destroy
         flash[:danger] = "Article was succesfulle deleted"
         redirect_to articles_path
@@ -57,7 +55,7 @@ class ArticlesController < ApplicationController
 
     def show
 
-        
+
 
     end
 
@@ -71,7 +69,7 @@ class ArticlesController < ApplicationController
 
         def article_params
 
-            params.require(:article).permit(:title, :description)
+            params.require(:article).permit(:title, :description, category_ids: [])
 
         end
 
